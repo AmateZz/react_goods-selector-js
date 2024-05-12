@@ -58,9 +58,11 @@ export const App = () => {
                   onClick={() => {
                     if (goodText === good) {
                       setGoodText('');
-                    } else {
-                      setGoodText(good);
+
+                      return;
                     }
+
+                    setGoodText(good);
                   }}
                 >
                   {goodText === good ? `-` : `+`}
