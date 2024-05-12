@@ -1,6 +1,7 @@
 import 'bulma/css/bulma.css';
 import './App.scss';
 import { useState } from 'react';
+import classNames from 'classnames';
 
 export const goods = [
   'Dumplings',
@@ -18,40 +19,42 @@ export const goods = [
 export const App = () => {
   const [goodText, setGoodText] = useState('Jam');
 
+  function removeGood() {
+    setGoodText('');
+  }
+
   return (
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
-        {goodText.length ? null : `No goods selected`}
-      </h1>
-
-      <h1 className="title is-flex is-align-items-center">
-        {goodText.length ? `${goodText} is selected` : null}
-        {goodText.length ? (
+        {goodText.length ? `${goodText} is selected` : 'No goods selected'}
+        {goodText !== '' && (
           <button
             data-cy="ClearButton"
             type="button"
             className="delete ml-3"
-            onClick={() => {
-              setGoodText('');
-            }}
+            onClick={removeGood}
           />
-        ) : null}
+        )}
       </h1>
 
       <table className="table">
         <tbody>
           {goods.map(good => (
             <tr
+              key={good}
               data-cy="Good"
-              className={
-                goodText === good ? 'has-background-success-light' : null
-              }
+              className={classNames({
+                'has-background-success-light': goodText === good,
+              })}
             >
               <td>
                 <button
                   data-cy={goodText === good ? `RemoveButton` : `AddButton`}
                   type="button"
-                  className={`button ${goodText === good ? `is-info` : null}`}
+                  className={`button
+                  ${classNames({
+                    'is-info': goodText === good,
+                  })}`}
                   onClick={() => {
                     if (goodText === good) {
                       setGoodText('');
