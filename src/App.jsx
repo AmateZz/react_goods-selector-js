@@ -27,7 +27,7 @@ export const App = () => {
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
         {goodText.length ? `${goodText} is selected` : 'No goods selected'}
-        {goodText !== '' && (
+        {goodText && (
           <button
             data-cy="ClearButton"
             type="button"
